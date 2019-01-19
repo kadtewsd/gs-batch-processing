@@ -16,6 +16,9 @@ apply plugin: 'io.spring.dependency-management'
 bootJar {
     baseName = 'gs-batch-processing'
     version =  '0.1.0'
+    manifest {
+        attributes 'Start-Class': 'org.springframework.batch.core.launch.support.CommandLineJobRunner'
+    }
 }
 
 repositories {
