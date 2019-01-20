@@ -1,9 +1,6 @@
 package hello;
 
-import javax.sql.DataSource;
-
 import org.springframework.batch.core.Job;
-import org.springframework.batch.core.JobExecutionListener;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
@@ -15,18 +12,24 @@ import org.springframework.batch.item.database.builder.JdbcBatchItemWriterBuilde
 import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.batch.item.file.builder.FlatFileItemReaderBuilder;
 import org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper;
-import org.springframework.batch.item.file.mapping.DefaultLineMapper;
-import org.springframework.batch.item.file.transform.DelimitedLineTokenizer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.data.repository.NoRepositoryBean;
 
-@SpringBootApplication
+import javax.sql.DataSource;
+
+// CommandLineJobRunner から起動するときは必要になるが、JobLauncherCommandLineRunner から起動するので不要
+//@SpringBootApplication
 @EnableBatchProcessing
+@Configuration
 public class BatchConfiguration {
+
+    @Autowired
+    Environment environment;
 
     @Autowired
     public JobBuilderFactory jobBuilderFactory;
