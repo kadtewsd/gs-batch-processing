@@ -70,6 +70,7 @@ public class BatchConfiguration {
     @Bean
     public Job importUserJob(JobCompletionNotificationListener listener, Step step1) {
         return jobBuilderFactory.get("importUserJob")
+            .preventRestart()
             .incrementer(new RunIdIncrementer())
             .listener(listener)
             .flow(step1)
